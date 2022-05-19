@@ -1,10 +1,5 @@
-<script setup lang="ts">
-import TheHeader from "@/components/TheHeader.vue";
-import EntryEditor from "./components/EntryEditor.vue";
-import EntryCard from "@/components/EntryCard.vue";
-</script>
-
 <template>
+  {{ user.username }}
   <main class="container m-auto p-10">
     <TheHeader />
     <EntryEditor />
@@ -15,3 +10,19 @@ import EntryCard from "@/components/EntryCard.vue";
     </ul>
   </main>
 </template>
+
+<script setup lang="ts">
+import TheHeader from "@/components/TheHeader.vue";
+import EntryEditor from "./components/EntryEditor.vue";
+import EntryCard from "@/components/EntryCard.vue";
+import { reactive } from "vue";
+import type User from "./types/User";
+
+const user: User = reactive({
+  id: 1,
+  username: "daniel",
+  settings: [],
+});
+
+console.log(user.id);
+</script>
