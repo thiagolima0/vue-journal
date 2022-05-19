@@ -1,11 +1,3 @@
-<script lang="ts" setup>
-import UseEmojis from "@/composables/UseEmojis";
-const { emojis } = UseEmojis();
-
-defineProps(["modelValue"]);
-defineEmits(["update:modelValue"]);
-</script>
-
 <template>
   <div class="emoji-container">
     <component
@@ -22,3 +14,11 @@ defineEmits(["update:modelValue"]);
     ></component>
   </div>
 </template>
+
+<script lang="ts" setup>
+import UseEmojis from "@/composables/UseEmojis";
+const { emojis } = UseEmojis();
+
+defineProps(["modelValue"]);
+defineEmits(["update:modelValue"]);
+</script>
