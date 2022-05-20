@@ -1,10 +1,9 @@
 <template>
-  {{ user.username }}
   <main class="container m-auto p-10">
     <TheHeader />
     <EntryEditor @@create="handleCreateEntry" />
     <ul>
-      <li>
+      <li v-for="entry in entryList" :key="entry.id">
         <EntryCard />
       </li>
     </ul>
@@ -25,8 +24,10 @@ const user: User = reactive({
   settings: [],
 });
 
-const handleCreateEntry = (entry: Entry) => {
-  console.log(entry)
-}
+const entryList: Entry[] = reactive([]);
 
+const handleCreateEntry = (entry: Entry) => {
+  entryList.unshift(entry)
+  console.log(entryList);
+};
 </script>

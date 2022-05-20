@@ -1,16 +1,5 @@
 <template>
-  <form
-    class="entry-form"
-    @submit.prevent="
-      $emit('@create', {
-        id: Math.random(),
-        userId: 1,
-        body,
-        emoji,
-        createdAt: new Date(),
-      })
-    "
-  >
+  <form class="entry-form" @submit.prevent="submitEntry">
     <textarea
       :value="body"
       @keyup="handleTextInput"
@@ -40,7 +29,7 @@ const maxChars = 280;
 
 // events
 
-defineEmits<{
+const emit = defineEmits<{
   (e: "@create", entry: Entry): void;
 }>();
 
@@ -54,5 +43,18 @@ const handleTextInput = (e: Event) => {
   } else {
     body.value = textarea.value = textarea.value.substring(0, maxChars);
   }
+};
+
+const submitEntry = () => {
+  emit("@create", {
+    id: Math.random(),
+    userId: 1,
+    body: body.value,
+    emoji: emoji.value,
+    createdAt: new Date(),
+  });
+
+  body.value = "";
+  emoji.value = null;
 };
 </script>
