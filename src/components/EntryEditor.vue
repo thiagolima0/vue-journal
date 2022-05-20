@@ -1,12 +1,13 @@
 <template>
   <form class="entry-form" @submit.prevent>
     <textarea
-      v-model="text"
+      :value="text"
+      @keyup="handleTextInput"
       placeholder="New Journal Entry for danielkelly_io"
     ></textarea>
     <EmojiField v-model="emoji" />
     <div class="entry-form-footer">
-      <span>{{ chartCount }} / 280</span>
+      <span>{{ chartCount }} / {{ maxChars }}</span>
       <button>Remember <ArrowCircleRight width="20" /></button>
     </div>
   </form>
@@ -21,4 +22,15 @@ import { ref, computed } from "vue";
 const text = ref("");
 const emoji = ref<Emoji | null>(null);
 const chartCount = computed<number>(() => text.value.length);
+const maxChars = 280;
+
+const handleTextInput = (e: Event) => {
+  const textarea = e.target as HTMLTextAreaElement;
+
+if (text.value.length < maxChars) {
+    text.value = textarea.value;
+  } else {
+    text.value = textarea.value = textarea.value.substring(0, maxChars);
+  }
+};
 </script>
