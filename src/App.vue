@@ -4,7 +4,7 @@
     <EntryEditor @@create="handleCreateEntry" />
     <ul>
       <li v-for="entry in entryList" :key="entry.id">
-        <EntryCard />
+        <EntryCard :entry="entry" />
       </li>
     </ul>
   </main>
@@ -28,6 +28,5 @@ const entryList: Entry[] = reactive([]);
 
 const handleCreateEntry = (entry: Entry) => {
   entryList.unshift(entry)
-  console.log(entryList);
 };
 </script>
