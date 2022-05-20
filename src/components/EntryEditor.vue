@@ -1,7 +1,18 @@
 <template>
-  <form class="entry-form" @submit.prevent="$emit('@create', { text, emoji })">
+  <form
+    class="entry-form"
+    @submit.prevent="
+      $emit('@create', {
+        id: Math.random(),
+        userId: 1,
+        body,
+        emoji,
+        createdAt: new Date(),
+      })
+    "
+  >
     <textarea
-      :value="text"
+      :value="body"
       @keyup="handleTextInput"
       placeholder="New Journal Entry for danielkelly_io"
     ></textarea>
@@ -18,18 +29,19 @@ import EmojiField from "@/components/EmojiField.vue";
 import ArrowCircleRight from "@/assets/icons/arrow-circle-right.svg";
 import type Emoji from "@/types/Emoji";
 import { ref, computed } from "vue";
+import type Entry from "@/types/Entry";
 
 // data
 
-const text = ref("");
+const body = ref("");
 const emoji = ref<Emoji | null>(null);
-const chartCount = computed<number>(() => text.value.length);
+const chartCount = computed<number>(() => body.value.length);
 const maxChars = 280;
 
 // events
 
 defineEmits<{
-  (e: "@create", entry: { text: string; emoji: Emoji | null }): void;
+  (e: "@create", entry: Entry): void;
 }>();
 
 // methods
@@ -37,10 +49,10 @@ defineEmits<{
 const handleTextInput = (e: Event) => {
   const textarea = e.target as HTMLTextAreaElement;
 
-  if (text.value.length < maxChars) {
-    text.value = textarea.value;
+  if (body.value.length < maxChars) {
+    body.value = textarea.value;
   } else {
-    text.value = textarea.value = textarea.value.substring(0, maxChars);
+    body.value = textarea.value = textarea.value.substring(0, maxChars);
   }
 };
 </script>
